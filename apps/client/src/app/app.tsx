@@ -1,12 +1,22 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import styles from './app.module.scss';
-
-import NxWelcome from './nx-welcome';
+import { cn } from './utils/cn.util';
 
 export function App() {
+    const newClass = 'bg-red-900';
+
     return (
         <div>
-            <NxWelcome title="client" />
+            <button
+                id="12"
+                className={cn(
+                    'bg-red btn btn-primary m-3 bg-green-800 pl-3',
+                    newClass,
+                    {
+                        'bg-yellow-700': true,
+                    },
+                )}
+            >
+                Button
+            </button>
         </div>
     );
 }
