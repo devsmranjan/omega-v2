@@ -1,4 +1,4 @@
-import { cn } from './utils/cn.util';
+import { cn } from '../common/utils';
 
 export function App() {
     const newClass = 'bg-red-900';
