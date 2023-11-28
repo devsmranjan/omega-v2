@@ -13,6 +13,8 @@ const ResetPassword = lazy(
     () => import('./features/auth/containers/reset-password/reset-password'),
 );
 
+const Dashboard = lazy(() => import('./features/dashboard/dashboard'));
+
 export function App() {
     return (
         <Suspense fallback={<p>Loading...</p>}>
@@ -24,6 +26,8 @@ export function App() {
                     <Route path="verify" element={<Verify />} />
                     <Route path="reset" element={<ResetPassword />} />
                 </Route>
+                <Route path="dashboard" element={<Dashboard />} />
+                <Route path="*" element={<h1>Page Not Found</h1>} />
             </Routes>
         </Suspense>
     );
