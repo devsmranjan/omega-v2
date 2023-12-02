@@ -7,6 +7,8 @@ import { StatusCodes } from 'http-status-codes';
 import logger from 'morgan';
 import { connectMongo } from './config';
 import { IHttpResponse } from './models';
+import { userRouter } from './routes';
+import { Endpoints } from './utils';
 
 const host = process.env.HOST ?? 'localhost';
 const port = process.env.PORT ? Number(process.env.PORT) : 3000;
@@ -27,6 +29,9 @@ connectMongo();
 app.get('/', (req, res) => {
     res.send({ message: `Hello API ${process.env.MONGO_URL}` });
 });
+
+// user
+app.use(Endpoints.USER, userRouter);
 
 // handle errors
 
