@@ -27,9 +27,7 @@ const emailVerificationTokenSchema = new Schema<IEmailVerificationToken, EmailVe
     },
 );
 
-const EmailVerificationToken = model<IEmailVerificationToken, EmailVerificationTokenModel>(
+export const EmailVerificationToken = model<IEmailVerificationToken, EmailVerificationTokenModel>(
     'EmailVerificationToken',
     emailVerificationTokenSchema,
 );
-
-export default EmailVerificationToken;

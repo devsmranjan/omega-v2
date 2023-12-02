@@ -1,1 +1,2 @@
-export * from './mongo';
+export * from './auth.config';
+export * from './mongo.config';

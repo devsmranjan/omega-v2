@@ -1,7 +1,6 @@
-import { Types } from 'mongoose';
+import { Document, Types } from 'mongoose';
 
-export interface IEmailVerificationToken {
+export interface IEmailVerificationToken extends Document {
     userId: Types.ObjectId;
     token: string;
-    // createdAt: Date;
 }

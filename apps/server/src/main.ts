@@ -3,7 +3,9 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import express from 'express';
 import logger from 'morgan';
-import { connectMongo } from './config';
+
+import passport, { initialize } from 'passport';
+import { authConfig, connectMongo } from './config';
 import { userRouter } from './routes';
 import { Endpoints, handleErrors, handleNotFound } from './utils';
 
@@ -22,6 +24,10 @@ app.use(cookieParser());
 
 // database config
 connectMongo();
+
+// passport
+app.use(initialize());
+authConfig(passport);
 
 app.get('/', (req, res) => {
     res.send({ message: `Hello API ${process.env.MONGO_URL}` });

@@ -4,7 +4,7 @@ import { sign } from 'jsonwebtoken';
 import { Model, Schema, model } from 'mongoose';
 
 import { IEmailVerificationToken, IUser } from '../models';
-import EmailVerificationTokenSchema from './email-verification-token.schema';
+import { EmailVerificationToken } from './email-verification-token.schema';
 
 interface IUserMethods {
     comparePassword(password: string): number;
@@ -104,12 +104,12 @@ userSchema.method('generateJwt', function () {
 
 // generate email verification token
 userSchema.method('generateEmailVerificationToken', function () {
-    const payload: IEmailVerificationToken = {
+    const payload: Partial<IEmailVerificationToken> = {
         userId: this._id,
         token: randomBytes(20).toString('hex'),
     };
 
-    return new EmailVerificationTokenSchema(payload);
+    return new EmailVerificationToken(payload);
 });
 
 // Generate token and expire time for password reset
@@ -118,6 +118,4 @@ userSchema.method('generatePasswordReset', function () {
     this.resetPasswordExpires = Date.now() + 3600000; // expires in 1 hour
 });
 
-const User = model<IUser, UserModel>('User', userSchema);
-
-export default User;
+export const User = model('User', userSchema);
