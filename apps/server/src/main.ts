@@ -25,7 +25,7 @@ app.use(cookieParser());
 connectMongo();
 
 app.get('/', (req, res) => {
-    res.send({ message: `Hello API ${process.env.GOOGLE_ID}` });
+    res.send({ message: `Hello API ${process.env.MONGO_URL}` });
 });
 
 // handle errors
