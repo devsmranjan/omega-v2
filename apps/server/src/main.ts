@@ -9,7 +9,7 @@ import { authConfig, connectMongo } from './config';
 import { authenticated } from './middlewares';
 import { userRouter } from './routes';
 import { authRouter } from './routes/auth.route';
-import { Endpoints, handleErrors, handleNotFound } from './utils';
+import { Endpoints, handleErrors, handleNotFound, withPrefix } from './utils';
 
 const host = process.env.HOST ?? 'localhost';
 const port = process.env.PORT ? Number(process.env.PORT) : 3000;
@@ -31,15 +31,15 @@ connectMongo();
 app.use(passport.initialize());
 authConfig(passport);
 
-app.get('/', (req, res) => {
+app.get(withPrefix('/'), (req, res) => {
     res.send({ message: `Hello API ${process.env.MONGO_URL}` });
 });
 
 // auth
-app.use(Endpoints.AUTH, authRouter);
+app.use(withPrefix(Endpoints.AUTH), authRouter);
 
 // user
-app.use(Endpoints.USER, authenticated, userRouter);
+app.use(withPrefix(Endpoints.USER), authenticated, userRouter);
 
 // handle errors
 
