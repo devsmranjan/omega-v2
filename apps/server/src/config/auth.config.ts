@@ -4,7 +4,9 @@ import { ExtractJwt, Strategy, StrategyOptions, VerifiedCallback } from 'passpor
 import { User } from '../schemas';
 
 interface JwtPayload {
-    id: string;
+    sub: string;
+    iat: number;
+    exp: number;
 }
 
 const options: StrategyOptions = {
@@ -16,7 +18,9 @@ export const authConfig = (passport: PassportStatic) => {
     passport.use(
         new Strategy(options, async function (payload: JwtPayload, done: VerifiedCallback) {
             try {
-                const user = await User.findById(payload.id);
+                console.log(payload);
+
+                const user = await User.findById(payload.sub);
 
                 if (user) {
                     return done(null, user);

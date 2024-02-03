@@ -3,7 +3,7 @@ import { StatusCodes } from 'http-status-codes';
 
 import { TUser } from '../models';
 import { User } from '../schemas';
-import { responseError, responseSuccess } from '../utils';
+import { getSlimUser, responseError, responseSuccess } from '../utils';
 
 export const signUp = async (req: Request, res: Response) => {
     try {
@@ -59,16 +59,9 @@ export const signIn = async (req: Request, res: Response) => {
         }
 
         // success
-        const userInfo: Partial<TUser> = {
-            id: user._id,
-            username: user.username,
-            email: user.email,
-            name: user.name,
-        };
-
         const data = {
             token: user.generateJwt(),
-            user: userInfo,
+            user: getSlimUser(user),
         };
 
         return res.status(StatusCodes.OK).json(responseSuccess('User successfully logged in', data));

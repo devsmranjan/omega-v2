@@ -9,3 +9,5 @@ export type TUser = {
     resetPasswordToken?: string;
     resetPasswordExpires?: number;
 } & Document;
+
+export type TUserSlim = Pick<TUser, '_id' | 'email' | 'username' | 'name'>;
