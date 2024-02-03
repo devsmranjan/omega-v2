@@ -1,6 +1,6 @@
 import { Document, Types } from 'mongoose';
 
-export interface IEmailVerificationToken extends Document {
+export type TEmailVerificationToken = {
     userId: Types.ObjectId;
     token: string;
-}
+} & Document;

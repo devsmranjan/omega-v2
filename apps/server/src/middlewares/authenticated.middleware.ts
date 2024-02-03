@@ -1,17 +1,17 @@
 import { NextFunction, Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
-import { authenticate } from 'passport';
+import passport from 'passport';
 
-import { IHttpResponse, IUser } from '../models';
+import { THttpResponse, TUser } from '../models';
 
 export const authenticated = function (req: Request, res: Response, next: NextFunction) {
-    authenticate('jwt', function (err: Error, user: IUser) {
+    passport.authenticate('jwt', function (err: Error, user: TUser) {
         if (err) {
             return next(err);
         }
 
         if (!user) {
-            const response: IHttpResponse = {
+            const response: THttpResponse = {
                 success: false,
                 message: 'Unauthorized Access - No Token Provided!',
             };

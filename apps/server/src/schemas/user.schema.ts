@@ -3,20 +3,20 @@ import { randomBytes } from 'crypto';
 import { sign } from 'jsonwebtoken';
 import { Model, Schema, model } from 'mongoose';
 
-import { IEmailVerificationToken, IUser } from '../models';
+import { TEmailVerificationToken, TUser } from '../models';
 import { EmailVerificationToken } from './email-verification-token.schema';
 
-interface IUserMethods {
+interface TUserMethods {
     comparePassword(password: string): number;
     generateJwt(): string;
     generateEmailVerificationToken(): string;
     generatePasswordReset(): void;
 }
 
-// Create a new Model type that knows about IUserMethods..
-export type UserModel = Model<IUser, null, IUserMethods>;
+// Create a new Model type that knows about TUserMethods..
+export type UserModel = Model<TUser, null, TUserMethods>;
 
-const userSchema = new Schema<IUser, UserModel, IUserMethods>(
+const userSchema = new Schema<TUser, UserModel, TUserMethods>(
     {
         email: {
             type: String,
@@ -88,8 +88,6 @@ userSchema.pre('save', function (next) {
 
 // check password is correct or not
 userSchema.method('comparePassword', function (password: string) {
-    this._id;
-
     return compareSync(password, this.password);
 });
 
@@ -104,7 +102,7 @@ userSchema.method('generateJwt', function () {
 
 // generate email verification token
 userSchema.method('generateEmailVerificationToken', function () {
-    const payload: Partial<IEmailVerificationToken> = {
+    const payload: Partial<TEmailVerificationToken> = {
         userId: this._id,
         token: randomBytes(20).toString('hex'),
     };

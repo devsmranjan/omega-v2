@@ -4,9 +4,11 @@ import dotenv from 'dotenv';
 import express from 'express';
 import logger from 'morgan';
 
-import passport, { initialize } from 'passport';
+import passport from 'passport';
 import { authConfig, connectMongo } from './config';
+import { authenticated } from './middlewares';
 import { userRouter } from './routes';
+import { authRouter } from './routes/auth.route';
 import { Endpoints, handleErrors, handleNotFound } from './utils';
 
 const host = process.env.HOST ?? 'localhost';
@@ -26,15 +28,18 @@ app.use(cookieParser());
 connectMongo();
 
 // passport
-app.use(initialize());
+app.use(passport.initialize());
 authConfig(passport);
 
 app.get('/', (req, res) => {
     res.send({ message: `Hello API ${process.env.MONGO_URL}` });
 });
 
+// auth
+app.use(Endpoints.AUTH, authRouter);
+
 // user
-app.use(Endpoints.USER, userRouter);
+app.use(Endpoints.USER, authenticated, userRouter);
 
 // handle errors
 

@@ -1,6 +1,6 @@
 import { Document } from 'mongoose';
 
-export interface IUser extends Document {
+export type TUser = {
     email: string;
     username: string;
     password: string;
@@ -8,4 +8,4 @@ export interface IUser extends Document {
     isVerified: boolean;
     resetPasswordToken?: string;
     resetPasswordExpires?: number;
-}
+} & Document;

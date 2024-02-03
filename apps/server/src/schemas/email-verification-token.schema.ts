@@ -1,10 +1,10 @@
 import { Model, Schema, model } from 'mongoose';
 
-import { IEmailVerificationToken } from '../models';
+import { TEmailVerificationToken } from '../models';
 
-type EmailVerificationTokenModel = Model<IEmailVerificationToken>;
+type EmailVerificationTokenModel = Model<TEmailVerificationToken>;
 
-const emailVerificationTokenSchema = new Schema<IEmailVerificationToken, EmailVerificationTokenModel>(
+const emailVerificationTokenSchema = new Schema<TEmailVerificationToken, EmailVerificationTokenModel>(
     {
         userId: {
             type: Schema.Types.ObjectId,
@@ -27,7 +27,7 @@ const emailVerificationTokenSchema = new Schema<IEmailVerificationToken, EmailVe
     },
 );
 
-export const EmailVerificationToken = model<IEmailVerificationToken, EmailVerificationTokenModel>(
+export const EmailVerificationToken = model<TEmailVerificationToken, EmailVerificationTokenModel>(
     'EmailVerificationToken',
     emailVerificationTokenSchema,
 );
