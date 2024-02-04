@@ -1,7 +1,7 @@
 /// <reference types='vitest' />
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
 import { nxViteTsPaths } from '@nx/vite/plugins/nx-tsconfig-paths.plugin';
+import react from '@vitejs/plugin-react';
+import { defineConfig } from 'vite';
 
 export default defineConfig({
     cacheDir: '../../node_modules/.vite/client',
@@ -9,6 +9,13 @@ export default defineConfig({
     server: {
         port: 4200,
         host: 'localhost',
+        proxy: {
+            '/api': {
+                target: 'http://localhost:3000',
+                secure: false,
+                changeOrigin: true,
+            },
+        },
     },
 
     preview: {
