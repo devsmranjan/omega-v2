@@ -22,6 +22,8 @@ export const validate = function (req: Request, res: Response, next: NextFunctio
 export const validateCredentials = function (req: Request, res: Response, next: NextFunction) {
     const errors = validationResult(req);
 
+    console.error(errors);
+
     if (!errors.isEmpty()) {
         return res.status(StatusCodes.UNPROCESSABLE_ENTITY).json(responseError('Invalid credentials'));
     }

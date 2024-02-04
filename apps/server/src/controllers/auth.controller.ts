@@ -37,7 +37,7 @@ export const signUp = async (req: Request, res: Response) => {
             .status(StatusCodes.CREATED)
             .json(responseSuccess('User successfully created. Check your email for verification', data));
     } catch (error) {
-        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(responseError('Internal server error', error));
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(responseError('Internal server error', error.data));
     }
 };
 
@@ -66,6 +66,6 @@ export const signIn = async (req: Request, res: Response) => {
 
         return res.status(StatusCodes.OK).json(responseSuccess('User successfully logged in', data));
     } catch (error) {
-        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(responseError('Internal server error', error));
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(responseError('Internal server error', error.data));
     }
 };

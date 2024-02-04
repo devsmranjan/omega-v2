@@ -32,7 +32,7 @@ app.use(passport.initialize());
 authConfig(passport);
 
 app.get(withPrefix('/'), (req, res) => {
-    res.send({ message: `Hello API ${process.env.MONGO_URL}` });
+    res.send({ message: `Hello there!` });
 });
 
 // auth

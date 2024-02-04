@@ -20,7 +20,6 @@ const signUpValidations: ValidationChain[] = [
 router.post('/signup', signUpValidations, validate, signUp);
 
 const signInValidations: ValidationChain[] = [
-    // check('email').isEmail().withMessage('Enter a valid email address'),
     check('username').not().isEmpty().withMessage('Invalid credentials'),
     check('password').not().isEmpty().isLength({ min: 6 }).withMessage('Invalid credentials'),
 ];

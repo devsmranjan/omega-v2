@@ -1,8 +1,10 @@
 export const responseSuccess = <T>(message: string, data?: T) => {
     return {
-        success: true,
-        message,
-        data,
+        data: {
+            success: true,
+            message,
+            data,
+        },
     };
 };
 
