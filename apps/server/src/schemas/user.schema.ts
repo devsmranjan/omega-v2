@@ -9,6 +9,8 @@ import { EmailVerificationToken } from './email-verification-token.schema';
 interface TUserMethods {
     comparePassword(password: string): number;
     generateJwt(): string;
+    generateAccessToken(): string;
+    generateRefreshToken(): string;
     generateEmailVerificationToken(): string;
     generatePasswordReset(): void;
 }
@@ -47,6 +49,10 @@ const userSchema = new Schema<TUser, UserModel, TUserMethods>(
         isVerified: {
             type: Boolean,
             default: false,
+        },
+        refreshToken: {
+            type: String,
+            required: false,
         },
         resetPasswordToken: {
             type: String,
@@ -98,6 +104,24 @@ userSchema.method('generateJwt', function () {
     };
 
     return sign(payload, process.env.JWT_SECRET, { expiresIn: '1d' }); // expires in 24 hours
+});
+
+// generate access token
+userSchema.method('generateAccessToken', function () {
+    const payload = {
+        sub: this._id,
+    };
+
+    return sign(payload, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '15m' }); // expires in 15m
+});
+
+// generate refresh token
+userSchema.method('generateRefreshToken', function () {
+    const payload = {
+        sub: this._id,
+    };
+
+    return sign(payload, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '1d' }); // expires in 1 day
 });
 
 // generate email verification token

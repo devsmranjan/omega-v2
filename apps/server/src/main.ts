@@ -52,3 +52,11 @@ app.use(handleErrors);
 app.listen(port, host, () => {
     console.log(`[ ready ] http://${host}:${port}`);
 });
+
+// DONE:
+/**
+ * User auth, sigin, sign up.
+ * DO add in client,
+ * then add subscription
+ * last, add email verification
+ */

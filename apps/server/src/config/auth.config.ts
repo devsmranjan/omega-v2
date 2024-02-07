@@ -1,32 +1,24 @@
 import { PassportStatic } from 'passport';
 import { ExtractJwt, Strategy, StrategyOptions, VerifiedCallback } from 'passport-jwt';
 
-import { User } from '../schemas';
-
-interface JwtPayload {
+export type TJwtPayload = {
     sub: string;
     iat: number;
     exp: number;
-}
+};
 
 const options: StrategyOptions = {
     jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-    secretOrKey: process.env.JWT_SECRET,
+    secretOrKey: process.env.ACCESS_TOKEN_SECRET,
 };
 
+// it wll verify jwt token
 export const authConfig = (passport: PassportStatic) => {
     passport.use(
-        new Strategy(options, async function (payload: JwtPayload, done: VerifiedCallback) {
+        new Strategy(options, async function (payload: TJwtPayload, done: VerifiedCallback) {
             try {
-                console.log(payload);
-
-                const user = await User.findById(payload.sub);
-
-                if (user) {
-                    return done(null, user);
-                }
-
-                return done(null, false);
+                // payload.sub is userId
+                return done(null, payload.sub);
             } catch (error) {
                 return done(error, false);
             }

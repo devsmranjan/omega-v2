@@ -2,22 +2,23 @@ import { NextFunction, Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
 import passport from 'passport';
 
-import { TUser } from '../models';
 import { responseError } from '../utils';
 
 export const authenticated = function (req: Request, res: Response, next: NextFunction) {
-    passport.authenticate('jwt', function (err: Error, user: TUser) {
+    passport.authenticate('jwt', function (err: Error, userId: number | string) {
         if (err) {
             return next(err);
         }
 
-        if (!user) {
+        if (!userId) {
             return res.status(StatusCodes.UNAUTHORIZED).json(responseError('Unauthorized Access - No Token Provided!'));
         }
 
+        console.log({ userId });
+
         // add to request
         req.user = {
-            _id: user._id,
+            _id: userId,
         };
 
         next();

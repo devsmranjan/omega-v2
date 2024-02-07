@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { ValidationChain, check } from 'express-validator';
-import { signIn, signUp } from '../controllers';
+import { getAccessTokenByRefreshToken, signIn, signOut, signUp } from '../controllers';
 import { validate, validateCredentials } from '../middlewares/validate.middleware';
 
 const router = Router();
@@ -25,5 +25,9 @@ const signInValidations: ValidationChain[] = [
 ];
 
 router.post('/signin', signInValidations, validateCredentials, signIn);
+
+router.get('/access-token', getAccessTokenByRefreshToken);
+
+router.get('/signout', signOut);
 
 export const authRouter = router;

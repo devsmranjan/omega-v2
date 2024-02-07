@@ -8,6 +8,7 @@ export type TUser = {
     isVerified: boolean;
     resetPasswordToken?: string;
     resetPasswordExpires?: number;
+    refreshToken?: string;
 } & Document;
 
 export type TUserSlim = Pick<TUser, '_id' | 'email' | 'username' | 'name'>;
