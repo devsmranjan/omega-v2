@@ -11,7 +11,7 @@ export const authenticated = function (req: Request, res: Response, next: NextFu
         }
 
         if (!userId) {
-            return res.status(StatusCodes.UNAUTHORIZED).json(responseError('Unauthorized Access - No Token Provided!'));
+            return res.status(StatusCodes.FORBIDDEN).json(responseError('Forbidden'));
         }
 
         console.log({ userId });

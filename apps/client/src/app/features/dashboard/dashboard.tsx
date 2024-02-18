@@ -1,11 +1,8 @@
 import { useSelector } from 'react-redux';
-import { selectCurrentUser } from '../auth/auth.slice';
+import { selectCurrentUser } from '../auth/slices/auth.slice';
 import styles from './dashboard.module.scss';
 
-/* eslint-disable-next-line */
-export interface DashboardProps {}
-
-export function Dashboard(props: DashboardProps) {
+export function Dashboard() {
     const user: any = useSelector(selectCurrentUser);
 
     return (

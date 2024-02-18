@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { TRootState } from '../../store';
+import { TRootState } from '../../../store';
 
 export type TAuthState = {
     user: unknown;
@@ -18,11 +18,14 @@ const authSlice = createSlice({
         setCredentials: (state, action) => {
             const { user, token } = action.payload;
 
-            console.log('user', user);
-            console.log('token', token);
-
             state.user = user;
             state.token = token;
+        },
+        setUser: (state, action) => {
+            state.user = action.payload;
+        },
+        setAccessToken: (state, action) => {
+            state.token = action.payload;
         },
         logout: (state) => {
             state.user = null;
@@ -31,7 +34,7 @@ const authSlice = createSlice({
     },
 });
 
-export const { setCredentials, logout } = authSlice.actions;
+export const { setCredentials, setAccessToken, logout, setUser } = authSlice.actions;
 
 // selectors -----------------
 export const selectCurrentUser = (state: TRootState) => state.auth.user;

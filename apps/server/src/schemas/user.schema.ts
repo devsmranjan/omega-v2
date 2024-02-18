@@ -112,7 +112,7 @@ userSchema.method('generateAccessToken', function () {
         sub: this._id,
     };
 
-    return sign(payload, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '15m' }); // expires in 15m
+    return sign(payload, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '30s' }); // expires in 15m
 });
 
 // generate refresh token

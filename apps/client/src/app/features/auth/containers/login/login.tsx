@@ -1,8 +1,8 @@
 import { useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { useLoginMutation } from '../../auth-api.slice';
-import { setCredentials } from '../../auth.slice';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useLoginMutation } from '../../slices/auth-api.slice';
+import { setCredentials } from '../../slices/auth.slice';
 import styles from './login.module.scss';
 
 export function Login() {
@@ -13,6 +13,9 @@ export function Login() {
     const [login, { isLoading }] = useLoginMutation();
 
     const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || '/dashboard';
+
     const dispatch = useDispatch();
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -35,7 +38,7 @@ export function Login() {
 
             dispatch(setCredentials(response.data.data));
 
-            navigate('/dashboard', { replace: true });
+            navigate(from, { replace: true });
         } catch (error: any) {
             console.error(error);
 
@@ -65,7 +68,8 @@ export function Login() {
                 {isLoading ? 'Signing in...' : 'Sign In'}
             </button>
 
-            <p ref={errorRef} className="text-red-500">
+            {/* aria-live, screen reader will announce immediately when focus */}
+            <p ref={errorRef} className="text-red-500" aria-live="assertive">
                 {errorMessage}
             </p>
         </form>

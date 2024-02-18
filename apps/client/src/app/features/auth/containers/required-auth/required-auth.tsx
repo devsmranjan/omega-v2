@@ -1,11 +1,8 @@
 import { useSelector } from 'react-redux';
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
-import { selectCurrentToken } from '../../auth.slice';
+import { selectCurrentToken } from '../../slices/auth.slice';
 
-/* eslint-disable-next-line */
-export interface RequiredAuthProps {}
-
-export function RequiredAuth(props: RequiredAuthProps) {
+export function RequiredAuth() {
     const token = useSelector(selectCurrentToken);
     const location = useLocation();
 
