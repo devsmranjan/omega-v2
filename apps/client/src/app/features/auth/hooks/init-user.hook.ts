@@ -7,7 +7,7 @@ export const useInitUser = () => {
     const [getAccessToken] = useRefreshMutation();
     const [getUser] = useUserMutation();
 
-    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [isLoading, setIsLoading] = useState<boolean | null>(null);
     const [error, setError] = useState<unknown>(null);
 
     const dispatch = useDispatch();

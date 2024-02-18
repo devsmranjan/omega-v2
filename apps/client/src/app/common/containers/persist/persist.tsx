@@ -21,7 +21,7 @@ export function Persist() {
         }
     }, [navigate, token]);
 
-    return isLoading ? <div>Loading authorization details...</div> : <Outlet />;
+    return isLoading === false ? <Outlet /> : <div>Loading...</div>;
 }
 
 export default Persist;
