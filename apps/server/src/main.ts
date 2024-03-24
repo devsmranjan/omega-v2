@@ -9,7 +9,8 @@ import { authConfig, connectMongo } from './config';
 import { authenticated } from './middlewares';
 import { userRouter } from './routes';
 import { authRouter } from './routes/auth.route';
-import { Endpoints, handleErrors, handleNotFound, withPrefix } from './utils';
+import { subscriptionRouter } from './routes/subscription.route';
+import { endpoints, handleErrors, handleNotFound, withPrefix } from './utils';
 
 const host = process.env.HOST ?? 'localhost';
 const port = process.env.PORT ? Number(process.env.PORT) : 3000;
@@ -36,10 +37,13 @@ app.get(withPrefix('/'), (req, res) => {
 });
 
 // auth
-app.use(withPrefix(Endpoints.AUTH), authRouter);
+app.use(withPrefix(endpoints.AUTH), authRouter);
 
 // user
-app.use(withPrefix(Endpoints.USER), authenticated, userRouter);
+app.use(withPrefix(endpoints.USER), authenticated, userRouter);
+
+// subscriptions
+app.use(withPrefix(endpoints.SUBSCRIPTIONS), subscriptionRouter);
 
 // handle errors
 

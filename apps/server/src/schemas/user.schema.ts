@@ -5,6 +5,7 @@ import { Model, Schema, model } from 'mongoose';
 
 import { TEmailVerificationToken, TUser } from '../models';
 import { EmailVerificationToken } from './email-verification-token.schema';
+import { Subscription } from './subscription.schema';
 
 interface TUserMethods {
     comparePassword(password: string): number;
@@ -62,6 +63,7 @@ const userSchema = new Schema<TUser, UserModel, TUserMethods>(
             type: Number,
             required: false,
         },
+        subscriptions: [Subscription],
     },
     {
         timestamps: true,
